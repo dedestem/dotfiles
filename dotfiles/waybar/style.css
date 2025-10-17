@@ -1,0 +1,11 @@
+* {
+    font-family: "Fira Sans SemiBold";
+    font-weight: bold;
+    font-size: 12px;
+    min-height: 16px;
+    padding: 2px 3px;
+}
+
+window#waybar {
+    background: transparent;
+}

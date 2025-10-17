@@ -1,0 +1,22 @@
+{
+  "modules-center": ["clock"],
+  "modules-left": [],
+  "modules-right": [],
+
+  // Modules
+  "clock": {
+      "format": "{:%d-%m-%Y %H:%M:%S}",
+      "tooltip": false,
+      "interval": 1
+  },
+  
+  "battery": {
+      "format": "{capacity}%",
+      "format-charging": "⚡ {capacity}%",
+      "format-full": "⚡ {capacity}%",
+      "tooltip": false,
+      "max-length": 8,
+      "interval": 1,
+      "path": "/sys/class/power_supply/ACAD"
+  }
+}
