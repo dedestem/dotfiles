@@ -1,5 +1,7 @@
 # David's Dotfiles
 
+Notice: This is an test for on my old laptop!
+
 ## Installation
 ``` sudo nixos-rebuild switch --flake .#hostname ```
 
