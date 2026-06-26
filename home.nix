@@ -165,6 +165,7 @@
       diff.colorMoved = "default";
       core.whitespace = "fix,space-before-tab,trailing-space";
       pull.rebase = true;
+      git.autofetch = true;
     };
   };
 
