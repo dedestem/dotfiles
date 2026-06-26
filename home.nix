@@ -85,7 +85,10 @@
         "update.showReleaseNotes" = false;
         "telemetry.telemetryLevel" = "off";
         "workbench.enableExperiments" = false;
+        "git.enableSmartCommit" = true;
 
+        "git.autofetch" = true;
+        "git.confirmSync" = false;
         # Font Config
         "editor.fontFamily" = "JetBrains Mono, Droid Sans Mono, monospace";
         "editor.fontLigatures" = true;
@@ -154,10 +157,11 @@
 
   programs.git = {
     enable = true;
-    userName = "dedestem";
-    userEmail = "david@davidnet.net";
-
     settings = {
+      user = {
+        email = "david@davidnet.net";
+        name = "dedestem";
+      };
       init.defaultBranch = "main";
       core.sshCommand = "ssh -i ~/.ssh/id_github";
       merge.conflictstyle = "zdiff3";
@@ -165,8 +169,6 @@
       diff.colorMoved = "default";
       core.whitespace = "fix,space-before-tab,trailing-space";
       pull.rebase = true;
-      git.autofetch = true;
-      git.confirmSync = false;
     };
   };
 
