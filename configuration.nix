@@ -5,11 +5,56 @@
     ./hardware-configuration.nix
   ];
 
+networking.nameservers = [ 
+ "192.168.1.248"  # 1st: Blocky (Local Cluster DNS)
+  "192.168.1.141"  # 2nd: Legacy DNS Server
+  "1.1.1.1"        # 3rd: Cloudflare (Public Fallback)
+];
+networking.dhcpcd.extraConfig = "nohook resolv.conf";
+networking.networkmanager.dns = "none";
+	virtualisation.docker.enable = true;
+  services.tlp.enable = true;
+  
+  services.tlp.settings = {
+    CPU_SCALING_GOVERNOR_ON_AC = "performance";
+    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+    CPU_BOOST_ON_AC = 1;
+    CPU_BOOST_ON_BAT = 0;
+
+    PCIE_ASPM_ON_AC = "performance";
+    PCIE_ASPM_ON_BAT = "powersave";
+  };
+
+	# LETOP! DOE BIJ STEAM DE LAUNCH OPTIONS nvidia-offload ervoor anders dan uh lagged alles dood
+services.power-profiles-daemon.enable = false;
+  hardware.nvidia = {
+      modesetting.enable = true;
+      powerManagement.enable = true;
+      open = false;
+  
+      prime = {
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
+    };
+  
+
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.systemd-boot.editor = false;
+
+  services.tailscale = {
+    enable = true;
+    # Declaratively set the operator user on startup
+    extraUpFlags = [ "--operator=david" ];
+  };
 
   # This forces the timeout file to literally write 0
   boot.loader.timeout = 0;
@@ -111,6 +156,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "docker"
     ];
   };
 
@@ -159,6 +205,8 @@
   programs.zsh.enable = true;
   environment.systemPackages = with pkgs; [
     micro
+    tree
+    wget
   ];
 
   # Work arounds

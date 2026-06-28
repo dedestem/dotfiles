@@ -28,6 +28,7 @@
     gnomeExtensions.coverflow-alt-tab
     gnomeExtensions.power-off-options
     gnomeExtensions.simple-timer
+    gnomeExtensions.tailscale-qs
     ptyxis
     jetbrains-mono
     nixfmt
@@ -62,6 +63,10 @@
         (with pkgs.vscode-extensions; [
           jnoortheen.nix-ide
           christian-kohler.path-intellisense
+          
+          # Guaranteed standard Nixpkgs attributes
+          esbenp.prettier-vscode
+          aaron-bond.better-comments
         ])
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {
@@ -69,6 +74,42 @@
             publisher = "rafaelmardojai";
             version = "0.4.1";
             sha256 = "sha256-J4WEa6VVPks6rhzjE5oD88RwqaRjTjn/gPeZKaCS6RM=";
+          }
+          {
+            name = "vs-code-extension";
+            publisher = "inlang";
+            version = "1.14.0";
+            sha256 = "sha256-/tz1E8YDrJmvRbcB6CZEfl8IwUkvD+WijzfgSFPgG+0=";
+          }
+          {
+            name = "svg-preview";
+            publisher = "SimonSiefke";
+            version = "2.8.2";
+            sha256 = "sha256-RNUC1/NAy/kuTjVaCvpZC4OFH1d0GLzGckNbuhbOn/I=";
+          }
+          {
+            name = "svelte-autoimport";
+            publisher = "pivaszbs";
+            version = "1.0.4";
+            sha256 = "sha256-MqxZYKxmbuXKQkgSZFhPVts1h6l7/sxYo/cqMirRKpE=";
+          }
+          {
+            name = "playwright";
+            publisher = "ms-playwright";
+            version = "1.1.9";
+            sha256 = "sha256-LUVRB6+bXs4r17v8Wjq+fSs++PiZPnebso70BcO3o7w=";
+          }
+          {
+            name = "pretty-ts-errors";
+            publisher = "YoavBls";
+            version = "0.5.4";
+            sha256 = "sha256-SMEqbpKYNck23zgULsdnsw4PS20XMPUpJ5kYh1fpd14=";
+          }
+          {
+            name = "svelte-vscode";
+            publisher = "svelte";
+            version = "108.4.1";
+            sha256 = "sha256-6MV3aW5PVl8SbF2y0cLt6ZKRba6Rb1m3Qs1fG1x63Pk=";
           }
         ];
 
@@ -148,6 +189,7 @@
 
     initContent = ''
       eval "$(direnv hook zsh)"
+      export DIRENV_WARN_TIMEOUT=0
     '';
 
     shellAliases = {

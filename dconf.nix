@@ -196,6 +196,7 @@ in
         "power-off-options@axelitama.github.io"
         "tiling-assistant@leleat-on-github"
         "simple-timer@majortomvr.github.com"
+        "tailscale-gnome-qs@tailscale-qs.github.io"
       ];
       favorite-apps = [
         "app.zen_browser.zen.desktop"
