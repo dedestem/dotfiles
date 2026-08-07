@@ -32,8 +32,9 @@
     ptyxis
     jetbrains-mono
     nixfmt
+    signal-desktop
     nixd
-    bitwarden-desktop
+    inputs.antigravity-nix.packages.${pkgs.system}.google-antigravity-cli
   ];
 
   # --- Hide specific apps from the app grid ---
@@ -63,17 +64,25 @@
         (with pkgs.vscode-extensions; [
           jnoortheen.nix-ide
           christian-kohler.path-intellisense
-          
+          bierner.markdown-mermaid
+          tim-koehler.helm-intellisense # <-- Fetched safely via Nixpkgs!
+
           # Guaranteed standard Nixpkgs attributes
           esbenp.prettier-vscode
           aaron-bond.better-comments
         ])
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {
-            name = "vscode-gnome-theme";
-            publisher = "rafaelmardojai";
-            version = "0.4.1";
-            sha256 = "sha256-J4WEa6VVPks6rhzjE5oD88RwqaRjTjn/gPeZKaCS6RM=";
+            name = "gotmpl-syntax-highlighter";
+            publisher = "karyan40024";
+            version = "0.0.1";
+            sha256 = "sha256-zB0QSKACcpTWMXtBa5Wal2ViXMNkiwYGBTJXK29cCQ4=";
+          }
+          {
+            name = "horizon-extended";
+            publisher = "LanceWilhelm";
+            version = "1.1.1";
+            sha256 = "sha256-0Fjm5rsaQuv3t5mOveEzWuOPEP7hg+WkEXtC/oxbtqo=";
           }
           {
             name = "vs-code-extension";
@@ -114,7 +123,7 @@
         ];
 
       userSettings = {
-        "workbench.colorTheme" = "GNOME dark";
+        "workbench.colorTheme" = "Horizon Extended - Original";
 
         "editor.minimap.enabled" = false;
         "workbench.sideBar.location" = "right";
@@ -146,6 +155,18 @@
           "editor.defaultFormatter" = "jnoortheen.nix-ide";
           "editor.formatOnSave" = true;
         };
+        "[json]" = {
+          "editor.defaultFormatter" = "vscode.json-language-features";
+          "editor.formatOnSave" = true;
+        };
+
+        # --- FIX FOR HELM TEMPLATE SPACING ISSUES ---
+        "[helm]" = {
+          "editor.formatOnSave" = false;
+        };
+        "[yaml]" = {
+          "editor.formatOnSave" = false;
+        };
       };
     };
   };
@@ -175,7 +196,8 @@
     enableDefaultConfig = false;
 
     settings = {
-      "ssh.davidnet.net 192.168.1.141 server1" = {
+      "server1" = {
+        hostname = "192.168.1.141";
         identityFile = "~/.ssh/id_server1_ubuntu_ssh";
       };
     };
@@ -229,6 +251,7 @@
       "file:///home/david/Pictures Pictures"
       "file:///home/david/Videos Videos"
       "file:///home/david/Downloads Downloads"
+      "file:///home/david/Projects Projects"
     ];
   };
 

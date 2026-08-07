@@ -208,7 +208,7 @@ in
     };
 
     "org/gnome/shell/app-switcher" = {
-      current-workspace-only = true;
+      current-workspace-only = false;
     };
 
     # --- App Indicator Extension ---

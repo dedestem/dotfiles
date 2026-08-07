@@ -5,16 +5,16 @@
     ./hardware-configuration.nix
   ];
 
-networking.nameservers = [ 
- "192.168.1.248"  # 1st: Blocky (Local Cluster DNS)
-  "192.168.1.141"  # 2nd: Legacy DNS Server
-  "1.1.1.1"        # 3rd: Cloudflare (Public Fallback)
-];
-networking.dhcpcd.extraConfig = "nohook resolv.conf";
-networking.networkmanager.dns = "none";
-	virtualisation.docker.enable = true;
+  networking.nameservers = [
+    "192.168.1.248" # 1st: Blocky (Local Cluster DNS)
+    "192.168.1.141" # 2nd: Legacy DNS Server
+    "1.1.1.1"
+  ];
+  networking.dhcpcd.extraConfig = "nohook resolv.conf";
+  networking.networkmanager.dns = "none";
+  virtualisation.docker.enable = true;
   services.tlp.enable = true;
-  
+
   services.tlp.settings = {
     CPU_SCALING_GOVERNOR_ON_AC = "performance";
     CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
@@ -26,23 +26,22 @@ networking.networkmanager.dns = "none";
     PCIE_ASPM_ON_BAT = "powersave";
   };
 
-	# LETOP! DOE BIJ STEAM DE LAUNCH OPTIONS nvidia-offload ervoor anders dan uh lagged alles dood
-services.power-profiles-daemon.enable = false;
+  # LETOP! DOE BIJ STEAM DE LAUNCH OPTIONS nvidia-offload ervoor anders dan uh lagged alles dood
+  services.power-profiles-daemon.enable = false;
   hardware.nvidia = {
-      modesetting.enable = true;
-      powerManagement.enable = true;
-      open = false;
-  
-      prime = {
-        offload = {
-          enable = true;
-          enableOffloadCmd = true;
-        };
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:1:0:0";
+    modesetting.enable = true;
+    powerManagement.enable = true;
+    open = false;
+
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
       };
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
     };
-  
+  };
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -125,7 +124,7 @@ services.power-profiles-daemon.enable = false;
   # Force Plymouth to hold the screen for the LUKS passphrase entry
   boot.initrd.systemd.enable = true;
 
-  # Keep the kernel quiet so text doesn't ruin the graphics
+  # Keep the kernel quiet and enforce kernel lockdown for security
   boot.kernelParams = [
     "quiet"
     "splash"
@@ -134,6 +133,7 @@ services.power-profiles-daemon.enable = false;
     "rd.systemd.show_status=false"
     "rd.udev.log_level=3"
     "udev.log_priority=3"
+    "lockdown=integrity"
   ];
 
   console.keyMap = "us";
@@ -148,6 +148,8 @@ services.power-profiles-daemon.enable = false;
     pulse.enable = true;
   };
 
+  services.fwupd.enable = true;
+
   # Define a user account.
   users.users."david" = {
     isNormalUser = true;
@@ -161,7 +163,7 @@ services.power-profiles-daemon.enable = false;
   };
 
   environment.sessionVariables = {
-    EDITOR = "nano";
+    EDITOR = "micro";
   };
 
   # Flatpaks
@@ -222,9 +224,6 @@ services.power-profiles-daemon.enable = false;
 
   # Nix configuration
   _module.args.inputs = inputs;
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-39.8.10" # Required for bitwarden
-  ];
 
   documentation.nixos.enable = false;
   nix.settings.experimental-features = [
