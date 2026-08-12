@@ -146,6 +146,8 @@
 
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
+        "git.terminalAuthentication" = true;
+        "password-store" = "gnome";
 
         "nix.hiddenLanguageServerErrors" = [
           "formatting"
