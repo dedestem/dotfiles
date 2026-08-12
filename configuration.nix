@@ -5,13 +5,6 @@
     ./hardware-configuration.nix
   ];
 
-  networking.nameservers = [
-    "192.168.1.248" # 1st: Blocky (Local Cluster DNS)
-    "192.168.1.141" # 2nd: Legacy DNS Server
-    "1.1.1.1"
-  ];
-  networking.dhcpcd.extraConfig = "nohook resolv.conf";
-  networking.networkmanager.dns = "none";
   virtualisation.docker.enable = true;
   services.tlp.enable = true;
 
@@ -58,8 +51,6 @@
   # This forces the timeout file to literally write 0
   boot.loader.timeout = 0;
 
-  boot.initrd.luks.devices."luks-e1191ed0-f89e-483e-ae73-adecd9779a41".device =
-    "/dev/disk/by-uuid/e1191ed0-f89e-483e-ae73-adecd9779a41";
   networking.hostName = "nixos";
 
   # Enable networking

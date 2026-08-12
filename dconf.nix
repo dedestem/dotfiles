@@ -91,6 +91,10 @@ in
       remove-old-trash-files = true;
     };
 
+    "org/gnome/settings-daemon/plugins/housekeeping" = {
+      donation-reminder-enabled = false;
+    };
+
     "org/gnome/desktop/notifications" = {
       application-children = [
         "org-gnome-console"
