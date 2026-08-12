@@ -197,10 +197,11 @@
     "com.modrinth.ModrinthApp" = {
       Context = {
         sockets = [
+          "!wayland"
           "x11"
-          "wayland"
         ];
         devices = [ "dri" ];
+        shared = [ "ipc" ];
       };
       Environment = {
         DISPLAY = ":0";
