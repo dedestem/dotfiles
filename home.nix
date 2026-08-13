@@ -146,8 +146,6 @@
 
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
-        "git.terminalAuthentication" = true;
-        "password-store" = "gnome";
 
         "nix.hiddenLanguageServerErrors" = [
           "formatting"
@@ -195,16 +193,22 @@
 
   programs.ssh = {
     enable = true;
-    enableDefaultConfig = false;
 
-    settings = {
+    extraConfig = ''
+      AddKeysToAgent yes
+    '';
+
+    matchBlocks = {
+      "github.com" = {
+        hostname = "github.com";
+        identityFile = "~/.ssh/id_github";
+      };
       "server1" = {
         hostname = "192.168.1.141";
         identityFile = "~/.ssh/id_server1_ubuntu_ssh";
       };
     };
   };
-
   programs.zsh = {
     enable = true;
     enableCompletion = true;

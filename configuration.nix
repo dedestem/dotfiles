@@ -53,6 +53,13 @@
 
   networking.hostName = "nixos";
 
+  # Enable GNOME Keyring daemon
+  services.gnome.gnome-keyring.enable = true;
+
+  # Enable PAM integration so it unlocks automatically on GDM login
+  security.pam.services.login.enableGnomeKeyring = true;
+  security.pam.services.gdm.enableGnomeKeyring = true;
+
   # Enable networking
   networking.networkmanager.enable = true;
 
