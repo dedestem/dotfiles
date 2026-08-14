@@ -155,6 +155,7 @@
     shell = pkgs.zsh;
     extraGroups = [
       "networkmanager"
+      "adbusers"
       "wheel"
       "docker"
     ];
