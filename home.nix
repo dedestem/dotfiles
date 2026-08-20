@@ -36,6 +36,7 @@
     nixd
     inputs.antigravity-nix.packages.${pkgs.system}.google-antigravity-cli
     android-tools
+    protonvpn-gui
   ];
 
   # --- Hide specific apps from the app grid ---

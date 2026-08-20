@@ -36,6 +36,9 @@
     };
   };
 
+  hardware.enableRedistributableFirmware = true;
+  hardware.i2c.enable = true;
+
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -132,6 +135,7 @@
     "rd.udev.log_level=3"
     "udev.log_priority=3"
     "lockdown=integrity"
+    #"acpi_backlight=native"
   ];
 
   console.keyMap = "us";
@@ -158,6 +162,7 @@
       "adbusers"
       "wheel"
       "docker"
+      "i2c"
     ];
   };
 
@@ -206,7 +211,7 @@
       Context = {
         sockets = [
           "!wayland"
-          "x11"
+          "x1]1"
         ];
         devices = [ "dri" ];
         shared = [ "ipc" ];
@@ -217,16 +222,42 @@
         __GLX_VENDOR_LIBRARY_NAME = "nvidia";
       };
     };
+    "com.pocoguy.Muse" = {
+      Context = {
+        filesystems = [
+          "xdg-data/icons:ro"
+          "~/.local/share/icons:ro"
+          "/run/current-system/sw/share/icons:ro"
+        ];
+      };
+    };
+  };
+
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [
+      font-awesome
+      material-icons
+      nerd-fonts.symbols-only
+    ];
   };
 
   # Other programs
   services.printing.enable = true;
   programs.zsh.enable = true;
+  environment.pathsToLink = [ "/share/icons" ];
   environment.systemPackages = with pkgs; [
+    adwaita-icon-theme
+    hicolor-icon-theme
     micro
     tree
     wget
+    ddcutil
+    vulkan-tools
+    gnomeExtensions.control-monitor-brightness-and-volume-with-ddcutil
   ];
+
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   # Work arounds
   system.activationScripts.forceGnomeAvatar = {
