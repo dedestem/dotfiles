@@ -36,6 +36,17 @@
     };
   };
 
+  services.input-remapper.enable = true;
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+  };
+
+  hardware.graphics.enable32Bit = true; # For NixOS 24.05 and newer
+
   hardware.enableRedistributableFirmware = true;
   hardware.i2c.enable = true;
 
@@ -163,6 +174,8 @@
       "wheel"
       "docker"
       "i2c"
+      "input"
+      "uinput"
     ];
   };
 

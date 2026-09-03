@@ -30,14 +30,28 @@
     gnomeExtensions.simple-timer
     gnomeExtensions.tailscale-qs
     ptyxis
+    ffmpeg
     jetbrains-mono
     nixfmt
+    input-remapper
     signal-desktop
     nixd
     inputs.antigravity-nix.packages.${pkgs.system}.google-antigravity-cli
     android-tools
     protonvpn-gui
+    (discord.override {
+      withVencord = true;
+    })
   ];
+
+  # Launch Signal Desktop automatically on login
+  xdg.configFile."autostart/signal-desktop.desktop".text = ''
+    [Desktop Entry]
+    Type=Application
+    Name=Signal
+    Exec=signal-desktop --start-in-tray
+    Terminal=false
+  '';
 
   # --- Hide specific apps from the app grid ---
   xdg.desktopEntries = {
