@@ -66,7 +66,14 @@
   boot.loader.timeout = 0;
 
   networking.hostName = "nixos";
-
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 59100 ];
+    allowedUDPPorts = [
+      59100
+      59200
+    ];
+  };
   # Enable GNOME Keyring daemon
   services.gnome.gnome-keyring.enable = true;
 
