@@ -327,7 +327,6 @@ in
       hide-power = false;
       hide-volume = false;
     };
-
     "org/gnome/desktop/app-folders" = {
       folder-children = [
         "System"
@@ -344,6 +343,7 @@ in
         "org.gnome.baobab.desktop"
         "org.gnome.Loupe.desktop"
         "be.alexandervanhee.gradia.desktop"
+        "app.zen_browser.zen.desktop"
       ];
     };
 
@@ -355,7 +355,9 @@ in
         "org.gnome.Usage.desktop"
         "org.gnome.Settings.desktop"
         "org.gnome.DiskUtility.desktop"
-        "org.gnome.Extension.desktop"
+        "org.gnome.Extensions.desktop"
+        "nvidia-settings.desktop"
+        "org.gnome.ColorProfileViewer.desktop"
       ];
     };
 
@@ -368,14 +370,19 @@ in
         "org.gnome.Calendar.desktop"
         "org.gnome.Papers.desktop"
         "org.gnome.Contacts.desktop"
+        "org.gnome.clocks.desktop"
+        "org.gnome.Papers-previewer.desktop"
       ];
     };
 
+    # --- 4. Games Folder ---
     "org/gnome/desktop/app-folders/folders/Games" = {
       name = "Games";
       apps = [
         "org.vinegarhq.Sober.desktop"
         "com.modrinth.ModrinthApp.desktop"
+        "Portal 2.desktop"
+        "steam.desktop"
       ];
     };
 

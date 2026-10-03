@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
+    ./hardware-configuration-LAPTOP-PAPA.nix
   ];
 
   virtualisation.docker.enable = true;
@@ -183,7 +183,14 @@
       "i2c"
       "input"
       "uinput"
+      "kvm" # Added for Claude Cowork Virtualization
     ];
+  };
+
+  # Enable Claude Desktop system-wide via the flake module
+  programs.claude-desktop = {
+    enable = true;
+    fhs = true; # Uses an FHS wrapper so MCP tools like npx/uvx work seamlessly
   };
 
   environment.sessionVariables = {
@@ -222,6 +229,10 @@
     }
     {
       appId = "be.alexandervanhee.gradia";
+      origin = "flathub";
+    }
+    {
+      appId = "com.microsoft.Edge";
       origin = "flathub";
     }
   ];

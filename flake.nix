@@ -16,6 +16,11 @@
       url = "github:jacopone/antigravity-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Added Claude Desktop flake
+    claude-cowork-nix = {
+      url = "github:Reginleif88/claude-cowork-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -23,6 +28,7 @@
       nixpkgs,
       home-manager,
       nix-flatpak,
+      claude-cowork-nix,
       ...
     }@inputs:
     {
@@ -35,6 +41,7 @@
 
           modules = [
             nix-flatpak.nixosModules.nix-flatpak
+            claude-cowork-nix.nixosModules.default # Injects the Claude desktop module
             ./configuration.nix
 
             home-manager.nixosModules.home-manager

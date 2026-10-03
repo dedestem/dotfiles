@@ -40,6 +40,7 @@
     inputs.antigravity-nix.packages.${pkgs.system}.google-antigravity-cli
     android-tools
     protonvpn-gui
+    claude-code
     (discord.override {
       withVencord = true;
     })
@@ -70,6 +71,15 @@
       name = "Clocks";
       exec = "gnome-clocks";
       noDisplay = true;
+    };
+    "claude-desktop" = {
+      name = "Claude";
+      exec = "claude-desktop";
+      terminal = false;
+      categories = [
+        "Development"
+        "Utility"
+      ];
     };
   };
 
