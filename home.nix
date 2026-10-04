@@ -41,6 +41,8 @@
     android-tools
     protonvpn-gui
     claude-code
+    inputs.llm-agents-nix.packages.${pkgs.system}.claude-desktop
+    bubblewrap # required at runtime by claude-desktop's FHS wrapper
     (discord.override {
       withVencord = true;
     })
@@ -72,16 +74,9 @@
       exec = "gnome-clocks";
       noDisplay = true;
     };
-    "claude-desktop" = {
-      name = "Claude";
-      exec = "claude-desktop";
-      terminal = false;
-      categories = [
-        "Development"
-        "Utility"
-      ];
-    };
   };
+  # claude-desktop ships its own desktop entry (com.anthropic.Claude.desktop),
+  # installed automatically via home.packages above.
 
   programs.vscode = {
     enable = true;

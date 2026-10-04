@@ -16,11 +16,11 @@
       url = "github:jacopone/antigravity-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Added Claude Desktop flake
-    claude-cowork-nix = {
-      url = "github:Reginleif88/claude-cowork-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # Claude Desktop package (official build, with Cowork support)
+    # Not following our nixpkgs: llm-agents.nix pins nixpkgs-unstable and its
+    # package set fails to evaluate against other nixpkgs versions (an
+    # unrelated package, git-surgeon, breaks the shared packages.<system> set).
+    llm-agents-nix.url = "github:numtide/llm-agents.nix";
   };
 
   outputs =
@@ -28,21 +28,20 @@
       nixpkgs,
       home-manager,
       nix-flatpak,
-      claude-cowork-nix,
       ...
     }@inputs:
-    {
-      nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
+    let
+      mkHost =
+        hostModule:
+        nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
 
-          # 💡 This passes inputs down to configuration.nix
+          # 💡 This passes inputs down to the host/common modules
           specialArgs = { inherit inputs; };
 
           modules = [
             nix-flatpak.nixosModules.nix-flatpak
-            claude-cowork-nix.nixosModules.default # Injects the Claude desktop module
-            ./configuration.nix
+            hostModule
 
             home-manager.nixosModules.home-manager
             {
@@ -58,6 +57,11 @@
             }
           ];
         };
+    in
+    {
+      nixosConfigurations = {
+        nixos-papa = mkHost ./nixos-papa.nix;
+        nixos-mama = mkHost ./nixos-mama.nix;
       };
     };
 }

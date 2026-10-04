@@ -4,9 +4,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Rebuild & Switch - NixOS flake",
+            "label": "Rebuild & Switch - nixos-papa",
             "type": "shell",
-            "command": "sudo nixos-rebuild switch --flake .#nixos",
+            "command": "sudo nixos-rebuild switch --flake .#nixos-papa",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,
@@ -14,10 +14,20 @@
                 "focus": true,
                 "panel": "dedicated"
             },
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "group": "build"
+        },
+        {
+            "label": "Rebuild & Switch - nixos-mama",
+            "type": "shell",
+            "command": "sudo nixos-rebuild switch --flake .#nixos-mama",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "dedicated"
+            },
+            "group": "build"
         }
     ]
 }

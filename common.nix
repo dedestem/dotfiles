@@ -1,40 +1,7 @@
 { pkgs, inputs, ... }:
 
 {
-  imports = [
-    ./hardware-configuration-LAPTOP-PAPA.nix
-  ];
-
   virtualisation.docker.enable = true;
-  services.tlp.enable = true;
-
-  services.tlp.settings = {
-    CPU_SCALING_GOVERNOR_ON_AC = "performance";
-    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-    CPU_BOOST_ON_AC = 1;
-    CPU_BOOST_ON_BAT = 0;
-
-    PCIE_ASPM_ON_AC = "performance";
-    PCIE_ASPM_ON_BAT = "powersave";
-  };
-
-  # LETOP! DOE BIJ STEAM DE LAUNCH OPTIONS nvidia-offload ervoor anders dan uh lagged alles dood
-  services.power-profiles-daemon.enable = false;
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    open = false;
-
-    prime = {
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
-  };
 
   services.input-remapper.enable = true;
 
@@ -65,7 +32,6 @@
   # This forces the timeout file to literally write 0
   boot.loader.timeout = 0;
 
-  networking.hostName = "nixos";
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 59100 ];
@@ -187,12 +153,6 @@
     ];
   };
 
-  # Enable Claude Desktop system-wide via the flake module
-  programs.claude-desktop = {
-    enable = true;
-    fhs = true; # Uses an FHS wrapper so MCP tools like npx/uvx work seamlessly
-  };
-
   environment.sessionVariables = {
     EDITOR = "micro";
   };
@@ -288,8 +248,6 @@
     gnomeExtensions.control-monitor-brightness-and-volume-with-ddcutil
   ];
 
-  services.xserver.videoDrivers = [ "nvidia" ];
-
   # Work arounds
   system.activationScripts.forceGnomeAvatar = {
     text = ''
@@ -316,5 +274,13 @@
     options = "--delete-older-than 14d";
   };
   nix.settings.auto-optimise-store = true;
+
+  # Binary cache for llm-agents.nix (provides the claude-desktop package),
+  # avoiding a local Rust build of its formatelf build tool.
+  nix.settings.substituters = [ "https://cache.numtide.com" ];
+  nix.settings.trusted-public-keys = [
+    "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+  ];
+
   system.stateVersion = "26.05";
 }
