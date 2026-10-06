@@ -344,6 +344,11 @@ in
         "org.gnome.Loupe.desktop"
         "be.alexandervanhee.gradia.desktop"
         "app.zen_browser.zen.desktop"
+        "input-remapper-gtk.desktop"
+        "input-remapper-autoload.desktop"
+        "net.audiorelay.AudioRelay.desktop"
+        "windows.desktop" # WinApps: full Windows desktop
+        "cmd.desktop" # WinApps: Windows terminal
       ];
     };
 
@@ -358,6 +363,9 @@ in
         "org.gnome.Extensions.desktop"
         "nvidia-settings.desktop"
         "org.gnome.ColorProfileViewer.desktop"
+        "gnome-system-monitor-kde.desktop"
+        "org.freedesktop.IBus.Setup.desktop"
+        "rygel-preferences.desktop"
       ];
     };
 
@@ -372,6 +380,7 @@ in
         "org.gnome.Contacts.desktop"
         "org.gnome.clocks.desktop"
         "org.gnome.Papers-previewer.desktop"
+        "word-o365.desktop" # WinApps (Windows VM)
       ];
     };
 
@@ -383,6 +392,17 @@ in
         "com.modrinth.ModrinthApp.desktop"
         "Portal 2.desktop"
         "steam.desktop"
+        "Among Us.desktop"
+        "FPS Chess.desktop"
+        "SECTOR ZERO.desktop"
+        "Upload Labs.desktop"
+        "Portal.desktop"
+        "Portal 2 Community Edition.desktop"
+        "Portal 2 Soundtrack.desktop"
+        "Portal Reloaded.desktop"
+        "Portal Revolution.desktop"
+        "Portal Stories Mel.desktop"
+        "Portal with RTX.desktop"
       ];
     };
 
