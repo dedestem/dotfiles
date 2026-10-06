@@ -349,6 +349,9 @@ in
         "net.audiorelay.AudioRelay.desktop"
         "windows.desktop" # WinApps: full Windows desktop
         "cmd.desktop" # WinApps: Windows terminal
+        "proton.vpn.app.gtk.desktop"
+        "vlc.desktop"
+        "com.microsoft.Edge.desktop"
       ];
     };
 
