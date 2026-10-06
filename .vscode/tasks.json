@@ -19,7 +19,7 @@
         {
             "label": "Rebuild & Switch - nixos-mama",
             "type": "shell",
-            "command": "sudo nixos-rebuild switch --flake .#nixos-mama",
+            "command": "sudo nixos-rebuild switch --flake .#nixos-mama && docker compose --file ~/.config/winapps/compose.yaml up --no-start",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,

@@ -21,6 +21,11 @@
     # package set fails to evaluate against other nixpkgs versions (an
     # unrelated package, git-surgeon, breaks the shared packages.<system> set).
     llm-agents-nix.url = "github:numtide/llm-agents.nix";
+    # Real Microsoft Office via a Windows VM shown as seamless Linux windows
+    winapps = {
+      url = "github:winapps-org/winapps";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

@@ -37,11 +37,11 @@
     signal-desktop
     nixd
     vlc
-    inputs.antigravity-nix.packages.${pkgs.system}.google-antigravity-cli
+    inputs.antigravity-nix.packages.${pkgs.stdenv.hostPlatform.system}.google-antigravity-cli
     android-tools
-    protonvpn-gui
+    proton-vpn
     claude-code
-    inputs.llm-agents-nix.packages.${pkgs.system}.claude-desktop
+    inputs.llm-agents-nix.packages.${pkgs.stdenv.hostPlatform.system}.claude-desktop
     bubblewrap # required at runtime by claude-desktop's FHS wrapper
     (discord.override {
       withVencord = true;
@@ -215,19 +215,21 @@
 
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
 
-    extraConfig = ''
-      AddKeysToAgent yes
-    '';
-
-    matchBlocks = {
+    settings = {
+      "*" = {
+        AddKeysToAgent = "yes";
+        HashKnownHosts = false;
+        UserKnownHostsFile = "~/.ssh/known_hosts";
+      };
       "github.com" = {
-        hostname = "github.com";
-        identityFile = "~/.ssh/id_github";
+        HostName = "github.com";
+        IdentityFile = "~/.ssh/id_github";
       };
       "server1" = {
-        hostname = "192.168.1.141";
-        identityFile = "~/.ssh/id_server1_ubuntu_ssh";
+        HostName = "192.168.1.141";
+        IdentityFile = "~/.ssh/id_server1_ubuntu_ssh";
       };
     };
   };

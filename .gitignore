@@ -1,0 +1,4 @@
+# Windows VM disk images / backups
+*.img
+*.img.bak
+winapps-backup/
