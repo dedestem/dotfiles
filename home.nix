@@ -41,6 +41,7 @@
     android-tools
     proton-vpn
     claude-code
+    godot-mono
     inputs.llm-agents-nix.packages.${pkgs.stdenv.hostPlatform.system}.claude-desktop
     bubblewrap # required at runtime by claude-desktop's FHS wrapper
     (discord.override {
