@@ -214,6 +214,10 @@
   home.file.".ssh/id_server1_ubuntu_ssh.pub".text =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINC2BjkSOojrRJMWFFnQc4BWPtsap8K7Uz8PT1LYbC5u david@server1-ubuntu-ssh";
 
+  # gcr-ssh-agent only manages keys that have a matching .pub file
+  home.file.".ssh/id_github.pub".text =
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG5WrFDDrZHBsWKgXvDP9O1nhNuqkdyPz05sOky8n227 david@davidnet.net";
+
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
@@ -258,7 +262,6 @@
         name = "dedestem";
       };
       init.defaultBranch = "main";
-      core.sshCommand = "ssh -i ~/.ssh/id_github";
       merge.conflictstyle = "zdiff3";
       diff.algorithm = "histogram";
       diff.colorMoved = "default";
